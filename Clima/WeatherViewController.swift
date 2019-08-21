@@ -11,9 +11,6 @@ import CoreLocation
 
 class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
-    let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
-    let APP_ID = "d4acbd23b3eeb7a7e17ed80a3f4ca355"
-
     let locationManager = CLLocationManager()
 
     @IBOutlet weak var weatherIcon: UIImageView!
@@ -26,56 +23,42 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.requestWhenInUseAuthorization()        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
     }
-    
-    
-    
-    //MARK: - Networking
-    /***************************************************************/
-    
-    //Write the getWeatherData method here:
-    
-
-    
-    
-    
-    
-    
-    //MARK: - JSON Parsing
-    /***************************************************************/
-   
-    
-    //Write the updateWeatherData method here:
-    
-
-    
-    
     
     //MARK: - UI Updates
     /***************************************************************/
     
-    
-    //Write the updateUIWithWeatherData method here:
-    
-    
-    
-    
-    
+    func updateUIWithWeatherData(weatherDataModel: WeatherDataModel) {
+        
+        temperatureLabel.text = "\(weatherDataModel.temperature) ºC"
+        cityLabel.text = weatherDataModel.city
+        weatherIcon.image = UIImage(named: weatherDataModel.weatherIcon)
+    }
     
     //MARK: - Location Manager Delegate Methods
     /***************************************************************/
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = locations[locations.count - 1]
+        
+        if location.horizontalAccuracy > 0 {
+            locationManager.stopUpdatingLocation()
+            locationManager.delegate = nil
+            
+            let latitude = String(location.coordinate.latitude)
+            let longitude = String(location.coordinate.longitude)
+            
+            let weatherService = WeatherService()
+            weatherService.getWeatherByPosition(latitude: latitude, longitude: longitude, completion: updateUIWithWeatherData)
+        }
+    }
     
-    
-    //Write the didUpdateLocations method here:
-    
-    
-    
-    //Write the didFailWithError method here:
-    
-    
-    
-
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Error: \(error)")
+        cityLabel.text = "Unable to get your current location"
+    }
     
     //MARK: - Change City Delegate methods
     /***************************************************************/
