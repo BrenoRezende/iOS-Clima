@@ -30,11 +30,15 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     //MARK: - UI Updates
     /***************************************************************/
     
-    func updateUIWithWeatherData(weatherDataModel: WeatherDataModel) {
+    func updateUIWithWeatherData(weatherDataModel: WeatherDataModel?) {
         
-        temperatureLabel.text = "\(weatherDataModel.temperature) ºC"
-        cityLabel.text = weatherDataModel.city
-        weatherIcon.image = UIImage(named: weatherDataModel.weatherIcon)
+        if let weatherData = weatherDataModel {
+            temperatureLabel.text = "\(weatherData.temperature) ºC"
+            cityLabel.text = weatherData.city
+            weatherIcon.image = UIImage(named: weatherData.weatherIcon)
+        } else {
+            cityLabel.text = "Weather Unavailable"
+        }
     }
     
     //MARK: - Location Manager Delegate Methods

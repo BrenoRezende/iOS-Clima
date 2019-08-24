@@ -15,7 +15,7 @@ struct WeatherService {
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "d4acbd23b3eeb7a7e17ed80a3f4ca355"
     
-    func getWeatherByPosition(latitude: String, longitude: String, completion: @escaping (_ : WeatherDataModel) -> Void) {
+    func getWeatherByPosition(latitude: String, longitude: String, completion: @escaping (_ : WeatherDataModel?) -> Void) {
         
         let params = ["lat": latitude, "lon": longitude, "appid": APP_ID]
         
@@ -23,8 +23,10 @@ struct WeatherService {
         httpService.require(url: WEATHER_URL, method: .get, params: params) {
             json in
             
-            guard let json = json else { return }
-            guard let temp = json["main"]["temp"].double else { return }
+            guard let json = json, let temp = json["main"]["temp"].double else {
+                completion(nil)
+                return
+            }
             
             let weatherDataModel = WeatherDataModel(
                 temperature: Int(temp - 273.15),
