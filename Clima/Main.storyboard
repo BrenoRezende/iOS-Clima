@@ -146,9 +146,10 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter City Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0F0-ob-gbM" userLabel="City Name Text Field">
-                                        <rect key="frame" x="93" y="141" width="189" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <rect key="frame" x="80" y="141" width="215" height="30"/>
+                                        <color key="textColor" red="0.18621152458445303" green="0.18805520304568524" blue="0.18805520304568524" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                     </textField>
                                 </subviews>
                                 <constraints>
@@ -156,8 +157,8 @@
                                     <constraint firstAttribute="trailing" secondItem="PdY-a2-R5m" secondAttribute="trailing" constant="12" id="LFV-io-fTm"/>
                                     <constraint firstItem="FvW-e3-7QL" firstAttribute="leading" secondItem="daC-2b-iRt" secondAttribute="leading" constant="16" id="Mbn-MV-F3S"/>
                                     <constraint firstAttribute="centerX" secondItem="0F0-ob-gbM" secondAttribute="centerX" id="Rg7-hk-cLI"/>
-                                    <constraint firstAttribute="trailing" secondItem="0F0-ob-gbM" secondAttribute="trailing" constant="93" id="RlB-UN-awk"/>
-                                    <constraint firstItem="0F0-ob-gbM" firstAttribute="leading" secondItem="daC-2b-iRt" secondAttribute="leading" constant="93" id="Sm2-m8-6CC"/>
+                                    <constraint firstAttribute="trailing" secondItem="0F0-ob-gbM" secondAttribute="trailing" constant="80" id="RlB-UN-awk"/>
+                                    <constraint firstItem="0F0-ob-gbM" firstAttribute="leading" secondItem="daC-2b-iRt" secondAttribute="leading" constant="80" id="Sm2-m8-6CC"/>
                                     <constraint firstAttribute="height" constant="221" id="fOA-8p-aei"/>
                                     <constraint firstItem="PdY-a2-R5m" firstAttribute="top" secondItem="0F0-ob-gbM" secondAttribute="bottom" constant="20" id="gAb-ag-tUI"/>
                                     <constraint firstItem="PdY-a2-R5m" firstAttribute="leading" secondItem="daC-2b-iRt" secondAttribute="leading" constant="12" id="lBD-Po-5vn"/>

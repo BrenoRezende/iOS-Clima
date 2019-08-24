@@ -8,16 +8,25 @@
 
 import Foundation
 import Alamofire
-import SwiftyJSON
 
 struct WeatherService {
     
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "d4acbd23b3eeb7a7e17ed80a3f4ca355"
     
-    func getWeatherByPosition(latitude: String, longitude: String, completion: @escaping (_ : WeatherDataModel?) -> Void) {
+    func getWeatherBy(latitude: String, longitude: String, completion: @escaping (WeatherDataModel?) -> Void) {
         
-        let params = ["lat": latitude, "lon": longitude, "appid": APP_ID]
+        let params = ["lat": latitude, "lon": longitude, "appid": APP_ID]        
+        getWeather(params, completion)
+    }
+    
+    func getWeatherBy(cityName: String, completion: @escaping (WeatherDataModel?) -> Void) {
+        
+        let params = ["q": cityName, "appid": APP_ID]
+        getWeather(params, completion)
+    }
+    
+    fileprivate func getWeather(_ params: [String : String], _ completion: @escaping (WeatherDataModel?) -> Void) {
         
         let httpService = HttpService()
         httpService.require(url: WEATHER_URL, method: .get, params: params) {
@@ -38,7 +47,7 @@ struct WeatherService {
         }
     }
     
-    func updateWeatherIcon(condition: Int) -> String {
+    fileprivate func updateWeatherIcon(condition: Int) -> String {
         
         switch (condition) {
             

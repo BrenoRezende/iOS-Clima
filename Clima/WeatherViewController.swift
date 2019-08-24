@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class WeatherViewController: UIViewController, CLLocationManagerDelegate {
+class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityProtocol {
     
     let locationManager = CLLocationManager()
 
@@ -37,12 +37,15 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             cityLabel.text = weatherData.city
             weatherIcon.image = UIImage(named: weatherData.weatherIcon)
         } else {
+            temperatureLabel.text = ""
             cityLabel.text = "Weather Unavailable"
+            weatherIcon.image = UIImage()
         }
     }
     
     //MARK: - Location Manager Delegate Methods
     /***************************************************************/
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations[locations.count - 1]
@@ -55,7 +58,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
             let longitude = String(location.coordinate.longitude)
             
             let weatherService = WeatherService()
-            weatherService.getWeatherByPosition(latitude: latitude, longitude: longitude, completion: updateUIWithWeatherData)
+            weatherService.getWeatherBy(latitude: latitude, longitude: longitude, completion: updateUIWithWeatherData)
         }
     }
     
@@ -67,17 +70,19 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     //MARK: - Change City Delegate methods
     /***************************************************************/
     
+    func cityChanged(city: String) {
+        
+        let weatherService = WeatherService()
+        weatherService.getWeatherBy(cityName: city, completion: updateUIWithWeatherData)
+    }
     
-    //Write the userEnteredANewCityName Delegate method here:
-    
-
-    
-    //Write the PrepareForSegue Method here
-    
-    
-    
-    
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "changeCityName" {
+            let destinationVC = segue.destination as! ChangeCityViewController
+            destinationVC.delegate = self
+        }
+    }
 }
 
 
